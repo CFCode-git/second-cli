@@ -1,0 +1,6 @@
+# IntelliJ project files
+/.idea
+/.vscode
+
+/template
+/node_modules
