@@ -50,8 +50,8 @@ function runCmd(cmd, args, fn) { // args npm 运行的参数 比如 -- install /
 
 module.exports = function (installArg = ['install']) {
   const npm = findNpm()
-  console.log('------- find npm ---------')
-  console.log(npm)
+  // console.log('------- find npm ---------')
+  // console.log(npm)
   return function (done) {
     // 执行命令
     runCmd(which.sync(npm), installArg, function () {

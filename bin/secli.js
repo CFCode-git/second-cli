@@ -43,7 +43,7 @@ program
         // 创建文件
         create(answer)
       }
-      console.log('answer=', answer)
+      // console.log('answer=', answer)
     })
   })
 

@@ -19,8 +19,8 @@ const currentPath = path.resolve(process.cwd(), 'node_modules', 'secli-react-web
  */
 
 module.exports = (type) => {
-  console.log(type)
-  console.log(currentPath)
+  // console.log(type)
+  // console.log(currentPath)
   return new Promise((resolve, reject) => {
     // 先判断 secli-react-plugin 是否存在
     // 如果存在 就启动该 plugin 下的 index.js 作为子进程
@@ -31,23 +31,23 @@ module.exports = (type) => {
     fs.access(currentPath, (error) => {
       if (error) {
         // 不存在 抛出警告,提示下载
-        console.log('不存在')
+        // console.log('不存在')
         utils.red('secli-react-webpack-plugin does not exist , please install secli-react-webpack-plugin')
       } else {
         // 存在
-        console.log('存在')
+        // console.log('存在')
         // 开启子进程
         // child_process.fork(modulePath[,args][,options])
         // modulePath 要在子进程中执行的模块 currentPath -- secli plugin 的入口文件 index.js
 
         const children = child_process.fork(path.resolve(currentPath, 'index.js'))
 
-        console.log(path.resolve(currentPath, 'index.js'))
+        // console.log(path.resolve(currentPath, 'index.js'))
         // 监听子进程的信息
 
         children.on('message', (message) => {
           const msg = JSON.parse(message)
-          console.log(111,msg)
+          // console.log(111,msg)
           if (msg.type === 'end') {
             // 关闭子进程
             children.kill()
