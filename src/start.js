@@ -1,3 +1,4 @@
+// secli 脚手架 借助 secli-plugin 创建子进程, 用于管理/操控 webpack, 比如合并配置项, 以及 运行 webpack-dev-server
 // 启动项目 start / build
 'use strict'
 
@@ -8,35 +9,42 @@ const utils = require('../utils/index')
 
 // 找到 secli-react-webpack-plugin 的路径
 // const currentPath = process.cwd() + '/node_modules/mycli-react-plugin'
-const currentPath = path.resolve(process.cwd(), 'node_modules', 'secli-react-plugin')
-
-console.log(currentPath)
+// process.cwd() 为 secli 创建的项目路径, 要找到该路径下面 node_modules/secli-react-plugin
+const currentPath = path.resolve(process.cwd(), 'node_modules', 'secli-react-webpack-plugin')
 
 /**
  *
  * @param type type === start 本地启动项目; type === build 线上打包项目
  * @returns {Promise<unknown>}
  */
+
 module.exports = (type) => {
   console.log(type)
   console.log(currentPath)
   return new Promise((resolve, reject) => {
-    // 判断 secli-react-plugin 是否存在
-    // 如果存在 就启动 plugin 下的 index.js 作为子进程
-    // 否则抛错
-    // 绑定子进程事件message,向子进程发送指令 是 start 还是 build
-    // 由 secli 完成 项目配置 和 构建
+    // 先判断 secli-react-plugin 是否存在
+    // 如果存在 就启动该 plugin 下的 index.js 作为子进程
+    // 否则就抛错
+    // 绑定子进程事件 message, 监听 end 或者 error报错
+    // children.send()向子进程发送指令 包括 start/build 以及当前的项目路径
+    // 由该 plugin 完成 项目配置 和 构建
     fs.access(currentPath, (error) => {
-      if (error) { // 不存在 抛出警告,下载
+      if (error) {
+        // 不存在 抛出警告,提示下载
         console.log('不存在')
         utils.red('secli-react-webpack-plugin does not exist , please install secli-react-webpack-plugin')
-      } else { // 存在
+      } else {
+        // 存在
         console.log('存在')
         // 开启子进程
         // child_process.fork(modulePath[,args][,options])
         // modulePath 要在子进程中执行的模块 currentPath -- secli plugin 的入口文件 index.js
+
         const children = child_process.fork(path.resolve(currentPath, 'index.js'))
+
+        console.log(path.resolve(currentPath, 'index.js'))
         // 监听子进程的信息
+
         children.on('message', (message) => {
           const msg = JSON.parse(message)
           console.log(111,msg)

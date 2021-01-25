@@ -173,7 +173,6 @@ module.exports = function (result) {
   utils.blue('当前路径:' + process.cwd())
   // 修改 package.json
   revisePackageJson(result, sourcePath).then(() => {
-    console.log('准备copy了,弟弟')
     copy(sourcePath, process.cwd(), npm())
     // copy(sourcePath, process.cwd(), ()=>{console.log('copy完了,弟弟')})
   })
