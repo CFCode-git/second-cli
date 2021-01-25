@@ -37,7 +37,6 @@ program
   .command('create')
   .description('create a project')
   .action(function () {
-    console.log('3333')
     utils.cyan('欢迎使用secli,这是我的第二个脚手架~')
     inquirer.prompt(question).then(answer => {
       if(answer.conf){
@@ -53,7 +52,6 @@ program
   .description('start a project')
   .action(function () {
     utils.green('----------------运行项目-------------------')
-    console.log('start 了 傻缺')
     start('start').then(()=>{
       utils.green('---------------运行完成-----------------')
     })
@@ -64,7 +62,6 @@ program
   .description('build a project')
   .action(function () {
     utils.green('----------------构建项目-------------------')
-    console.log('build 了 傻缺')
     start('build').then(()=>{
       utils.green('----------------构建完成-------------------')
     })
