@@ -35,7 +35,7 @@ program
 
 program
   .command('create')
-  .description('start a project')
+  .description('create a project')
   .action(function () {
     console.log('hi')
     utils.cyan('欢迎使用secli,这是我的第二个脚手架~')
@@ -63,6 +63,9 @@ program
   .description('build a project')
   .action(function () {
     utils.green('----------------构建项目-------------------')
+    start('build').then(()=>{
+      utils.green('----------------构建完成-------------------')
+    })
   })
 
 

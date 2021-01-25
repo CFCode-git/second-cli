@@ -127,7 +127,7 @@ function completeControl(callbackFn) {
         // npm install 后执行这里的回调
         utils.blue('--------完成install--------')
         // 判断是否存在webpack
-        // runProject()
+        runProject()
       })
     }
   }
@@ -171,7 +171,7 @@ module.exports = function (result) {
   // 找到 template文件夹下的模板项目
   const sourcePath = __dirname.slice(0, -3) + 'template'
   utils.blue('当前路径:' + process.cwd())
-  // 修改 package.json 
+  // 修改 package.json
   revisePackageJson(result, sourcePath).then(() => {
     console.log('准备copy了,弟弟')
     copy(sourcePath, process.cwd(), npm())

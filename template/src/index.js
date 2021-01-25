@@ -6,7 +6,7 @@ import './assets/styles/common.scss'
 
 
 ReactDOM.render(
-    rux.create({}, () => <App />),
+    rux.create({}, () => React.createElement(App,{})),
     document.getElementById('app')
 )
 
