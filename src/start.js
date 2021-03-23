@@ -18,7 +18,7 @@ const currentPath = path.resolve(process.cwd(), 'node_modules', 'secli-react-web
  * @returns {Promise<unknown>}
  */
 
-module.exports = (type) => {
+module.exports = (type) => { // type: start or build
   // console.log(type)
   // console.log(currentPath)
   return new Promise((resolve, reject) => {
@@ -34,17 +34,22 @@ module.exports = (type) => {
         // console.log('不存在')
         utils.red('secli-react-webpack-plugin does not exist , please install secli-react-webpack-plugin')
       } else {
-        // 存在
+        // 存在  开启子进程
         // console.log('存在')
-        // 开启子进程
         // child_process.fork(modulePath[,args][,options])
-        // modulePath 要在子进程中执行的模块 currentPath -- secli plugin 的入口文件 index.js
+        // modulePath 要在子进程中执行的模块
+        // 此处的 currentPath -- secli plugin 的入口文件 index.js
+        // child_process.fork() 是 child_process.spawn() 的特例，专门用于衍生新的Node.js进程。
+        // 与 child_process。spawn() 一样返回 ChildProcess 对象。 返回的 ChildProcess 会内置额外的通信通道，运行消息在父子进程件传递。
 
         const children = child_process.fork(path.resolve(currentPath, 'index.js'))
 
         // console.log(path.resolve(currentPath, 'index.js'))
         // 监听子进程的信息
+        // http://nodejs.cn/api/child_process.html#child_process_child_process
 
+        // ChildProcess 类
+        // 监听子进程回传的 message， 如果 message 为 end 则关闭子进程，
         children.on('message', (message) => {
           const msg = JSON.parse(message)
           // console.log(111,msg)
@@ -57,7 +62,7 @@ module.exports = (type) => {
             reject()
           }
         })
-        // 发送 cwd 路径, 和操作类型 : start / build
+        // 向子进程 发送 cwd 路径, 和 操作类型 : start / build
         children.send(JSON.stringify({
           cwdPath: process.cwd(),
           type: type || 'build'

@@ -34,7 +34,7 @@
     "happypack": "^5.0.1",
     "node-sass": "^4.13.1",
     "postcss-loader": "^3.0.0",
-    "secli-react-webpack-plugin": "^0.0.2",
+    "secli-react-webpack-plugin": "^0.0.3",
     "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
     "ts-loader": "^4.5.0",

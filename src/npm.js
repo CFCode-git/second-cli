@@ -2,6 +2,10 @@
 
 const which = require('which')
 
+/**
+ * 查找 npm 可执行文件的实例
+ * @returns {string}
+ */
 function findNpm() {
   const npms = process.platform === 'win32' ? ['npm.cmd'] : ['npm']
   // const npms = process.platform === 'win32' ? ['npm'] : ['npm.cmd']
@@ -23,9 +27,20 @@ function findNpm() {
 }
 
 
-// 运行终端命令
-function runCmd(cmd, args, fn) { // args npm 运行的参数 比如 -- install / start ...
+/**
+ * 运行终端命令
+ * @param cmd  这里的cmd是 npm 的实例
+ * @param args 这里是 npm 运行的参数，比如 npm 【install，start，build】
+ * @param fn 子进程运行完毕后执行的回调
+ */
+function runCmd(cmd, args, fn) {
   args = args || []
+  // 创建子进程，运行终端命令
+  // child_process.spawn(command[,args][,options])
+  // command -- 要运行的命令
+  // args 字符串列表参数
+  // options: cwd-子进程当前工作目录 env-环境变量键值对  stdio-子进程的stdio设置
+  // stdio: 'inherit' 选项, 当代码执行时, 子进程继承 主进程的 stdin stdout stderr
   const runner = require('child_process').spawn(cmd, args, {
     stdio: ['inherit', 'inherit', 'inherit']
   })
@@ -40,6 +55,7 @@ function runCmd(cmd, args, fn) { // args npm 运行的参数 比如 -- install /
   //   console.log('11111111111111111111111')
   //   console.log(`child stdout: ${data}`)
   // })
+  // 子进程的 close 事件， 在子进程退出时触发， code为子进程退出时的退出码
   runner.on('close', function (code) {
     if(fn){
       fn(code)
