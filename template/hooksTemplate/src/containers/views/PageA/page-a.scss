@@ -1,0 +1,18 @@
+@import 'base.scss';
+
+.header {
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+
+    div {
+        margin-right: 1em;
+    }
+}
+
+.calc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

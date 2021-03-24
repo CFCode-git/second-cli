@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const packageData = require('../package.json')
 const program = require('commander')
 const inquirer = require('inquirer')
 const utils = require('../utils/index')
@@ -20,7 +21,7 @@ const question = [
     name: 'state',
     type: 'list',
     message: '请选择公共管理状态:',
-    choices: ['mobx', 'redux'],
+    choices: ['hooks', 'redux'],
     filter: function (val) {
       return val.toLowerCase()
     },
@@ -30,7 +31,7 @@ const create = require('../src/create')
 const start = require('../src/start')
 
 program
-  .version('0.0.1')
+  .version(packageData.version)
   .parse(process.argv)
 
 program

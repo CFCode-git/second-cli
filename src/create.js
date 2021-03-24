@@ -164,10 +164,16 @@ module.exports = function (answer) {
   console.log('result: ', answer)
   utils.green('----------开始构建----------')
   // 找到 template文件夹下的模板项目
-  const sourcePath = __dirname.slice(0, -3) + 'template'
-  console.log(__dirname)
-  console.log(__dirname.slice(0, -3))
-  console.log(sourcePath)
+  // const sourcePath = __dirname.slice(0, -3) + 'template'
+
+  let sourcePath
+  answer.state === 'redux' ?
+    sourcePath = path.resolve(__dirname, '../', 'template', 'reduxTemplate') :
+    sourcePath = path.resolve(__dirname, '../', 'template', 'hooksTemplate')
+
+  // console.log(__dirname)
+  // console.log(__dirname.slice(0, -3))
+  // console.log(sourcePath)
   utils.blue('当前路径:' + process.cwd())
   // 修改 package.json
 

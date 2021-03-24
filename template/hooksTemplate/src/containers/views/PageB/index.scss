@@ -1,0 +1,16 @@
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+
+    > div {
+        margin-right: 1em;
+    }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
